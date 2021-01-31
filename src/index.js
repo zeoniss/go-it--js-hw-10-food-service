@@ -19,31 +19,53 @@ const Theme = {
     DARK: 'dark-theme',
 };
 
-const existingTheme = localStorage.getItem('Theme');
-const parsedExistingTheme = JSON.parse(existingTheme);
+const bodyColor = document.querySelector('body');
 
-if (existingTheme) {
-    document.body.classList.add(parsedExistingTheme);
-}
+const switcher = document.querySelector('.theme-switch__toggle');
 
-const refs = {
-    switcher: document.querySelector('#theme-switch-toggle'),
-};
+switcher.addEventListener('change', clickHandler);
+switcher.addEventListener('change', setLocalStorage);
+document.addEventListener('DOMContentLoaded', getThemeFromLocalStorage);
 
-if (existingTheme === JSON.stringify(Theme.DARK)) {
-    refs.switcher.checked = true;
-}
-
-refs.switcher.addEventListener('change', changeTheme);
-
-function changeTheme(event) {
-    if (event.target.checked) {
-        document.body.classList.remove(existingTheme);
-        document.body.classList.add('dark-theme');
-        localStorage.setItem('Theme', JSON.stringify(Theme.DARK));
+function clickHandler(e) {
+    if (switcher.checked) {
+        setDarkTheme();
     } else {
-        document.body.classList.remove(existingTheme);
-        document.body.classList.remove('dark-theme');
-        localStorage.setItem('Theme', JSON.stringify(Theme.LIGHT));
+        setLightTheme();
     }
+}
+
+function setLocalStorage(e) {
+    if (switcher.checked) {
+        localStorage.setItem('theme', Theme.DARK);
+    } else {
+        localStorage.removeItem('theme');
+        localStorage.setItem('theme', Theme.LIGHT);
+    }
+}
+
+function getThemeFromLocalStorage() {
+    const themeInLocalStrg = localStorage.getItem('theme');
+    if (themeInLocalStrg === Theme.DARK) {
+        bodyColor.classList.add(Theme.DARK);
+        switcher.checked = true;
+    }
+}
+
+function setDarkTheme() {
+    bodyColor.classList.add(Theme.DARK);
+    bodyColor.classList.remove(Theme.LIGHT);
+}
+
+function setLightTheme() {
+    bodyColor.classList.add(Theme.LIGHT);
+    bodyColor.classList.remove(Theme.DARK);
+}
+
+const menuContainer = document.querySelector('.js-menu');
+const cardsMarkup = createColorCardsMarkup(cards);
+menuContainer.insertAdjacentHTML('beforeend', cardsMarkup);
+
+function createColorCardsMarkup(cards) {
+    return menuCardTpl(cards);
 }
