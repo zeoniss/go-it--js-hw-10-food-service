@@ -6,8 +6,8 @@
     "scripts": {
         "start": "webpack-dev-server --env.mode development --config ./webpack/config.js",
         "build": "webpack --env.mode production --config ./webpack/config.js",
-        "predeploy": "npm run build"
-
+        "predeploy": "npm run build",
+        "deploy": "main -d build"
     },
     "repository": {
         "type": "git",
