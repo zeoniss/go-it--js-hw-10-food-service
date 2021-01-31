@@ -6,8 +6,8 @@
     "scripts": {
         "start": "webpack-dev-server --env.mode development --config ./webpack/config.js",
         "build": "webpack --env.mode production --config ./webpack/config.js",
-        "predeploy": "npm run build",
-        "deploy": "gh-pages -d build"
+        "predeploy": "npm run build"
+
     },
     "repository": {
         "type": "git",
@@ -17,7 +17,7 @@
     "author": "Alexander Repeta <alexander.repeta@gmail.com>",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/luxplanjay/webpack-starter-kit/issues"
+        "url": "https://github.com/zeoniss/go-it--js-hw-10-food-service"
     },
     "homepage": "https://github.com/zeoniss/go-it--js-hw-10-food-service",
     "devDependencies": {
